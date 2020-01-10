@@ -630,6 +630,7 @@ extern const struct _mp_obj_exception_t mp_const_GeneratorExit_obj;
 #define mp_obj_is_str(o) (mp_obj_is_qstr(o) || mp_obj_is_type(o, &mp_type_str))
 #define mp_obj_is_str_or_bytes(o) (mp_obj_is_qstr(o) || (mp_obj_is_obj(o) && ((mp_obj_base_t*)MP_OBJ_TO_PTR(o))->type->binary_op == mp_obj_str_binary_op))
 #define mp_obj_is_fun(o) (mp_obj_is_obj(o) && (((mp_obj_base_t*)MP_OBJ_TO_PTR(o))->type->name == MP_QSTR_function))
+#define mp_obj_is_meth(o) (MP_OBJ_IS_OBJ(o) && (((mp_obj_base_t*)MP_OBJ_TO_PTR(o))->type->name == MP_QSTR_bound_method))
 
 mp_obj_t mp_obj_new_type(qstr name, mp_obj_t bases_tuple, mp_obj_t locals_dict);
 static inline mp_obj_t mp_obj_new_bool(mp_int_t x) { return x ? mp_const_true : mp_const_false; }
@@ -883,6 +884,7 @@ mp_obj_t mp_seq_extract_slice(size_t len, const mp_obj_t *seq, mp_bound_slice_t 
 #define MP_OBJ_IS_STR mp_obj_is_str
 #define MP_OBJ_IS_STR_OR_BYTES mp_obj_is_str_or_bytes
 #define MP_OBJ_IS_FUN mp_obj_is_fun
+#define MP_OBJ_IS_METH mp_obj_is_meth
 #define MP_MAP_SLOT_IS_FILLED mp_map_slot_is_filled
 #define MP_SET_SLOT_IS_FILLED mp_set_slot_is_filled
 

@@ -312,7 +312,6 @@ SRC_C = \
 	machine_touchpad.c \
 	machine_adc.c \
 	machine_dac.c \
-	machine_i2c.c \
 	machine_pwm.c \
 	machine_uart.c \
 	modmachine.c \
@@ -327,6 +326,7 @@ SRC_C = \
 	esp32_ulp.c \
 	modesp32.c \
 	espneopixel.c \
+	machine_hw_i2c.c \
 	machine_hw_spi.c \
 	machine_wdt.c \
 	mpthreadport.c \

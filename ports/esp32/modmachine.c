@@ -49,7 +49,6 @@
 #include "extmod/machine_mem.h"
 #include "extmod/machine_signal.h"
 #include "extmod/machine_pulse.h"
-#include "extmod/machine_i2c.h"
 #include "extmod/machine_spi.h"
 #include "modmachine.h"
 #include "machine_rtc.h"
@@ -63,6 +62,20 @@ typedef enum {
     MP_DEEPSLEEP_RESET,
     MP_SOFT_RESET
 } reset_reason_t;
+
+// debut
+int machine_pin_get_gpio(mp_obj_t pin_in)
+{
+    if (MP_OBJ_IS_INT(pin_in)) {
+    	int wanted_pin = mp_obj_get_int(pin_in);
+    	if (!GPIO_IS_VALID_GPIO(wanted_pin)) {
+        	mp_raise_ValueError("Invalid pin number");
+    	}
+    	return wanted_pin;
+    }
+    return machine_pin_get_id(pin_in);
+}
+// fin
 
 STATIC mp_obj_t machine_freq(size_t n_args, const mp_obj_t *args) {
     if (n_args == 0) {
@@ -253,7 +266,7 @@ STATIC const mp_rom_map_elem_t machine_module_globals_table[] = {
     { MP_ROM_QSTR(MP_QSTR_TouchPad), MP_ROM_PTR(&machine_touchpad_type) },
     { MP_ROM_QSTR(MP_QSTR_ADC), MP_ROM_PTR(&machine_adc_type) },
     { MP_ROM_QSTR(MP_QSTR_DAC), MP_ROM_PTR(&machine_dac_type) },
-    { MP_ROM_QSTR(MP_QSTR_I2C), MP_ROM_PTR(&machine_i2c_type) },
+    { MP_ROM_QSTR(MP_QSTR_I2C), MP_ROM_PTR(&machine_hw_i2c_type) },
     { MP_ROM_QSTR(MP_QSTR_PWM), MP_ROM_PTR(&machine_pwm_type) },
     { MP_ROM_QSTR(MP_QSTR_RTC), MP_ROM_PTR(&machine_rtc_type) },
     { MP_ROM_QSTR(MP_QSTR_SPI), MP_ROM_PTR(&mp_machine_soft_spi_type) },
